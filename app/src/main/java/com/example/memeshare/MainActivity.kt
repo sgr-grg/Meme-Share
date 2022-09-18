@@ -30,19 +30,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         loadMeme()
         binding.share.setOnClickListener {
-            if (!uri.isNullOrBlank()) {
-                val intent = Intent(Intent.ACTION_SEND)
-                intent.type = "text/plain"
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Share")
-                intent.putExtra(Intent.EXTRA_TEXT, uri)
-                startActivity(Intent.createChooser(intent, "Share Using"))
-
-            } else {
-                Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_SHORT).show()
-            }
+            onShareClicked()
         }
         binding.next.setOnClickListener {
             loadMeme()
+        }
+    }
+
+    private fun onShareClicked() {
+        if (!uri.isNullOrBlank()) {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Share")
+            intent.putExtra(Intent.EXTRA_TEXT, uri)
+            startActivity(Intent.createChooser(intent, "Share Using"))
+
+        } else {
+            Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_SHORT).show()
         }
     }
 
